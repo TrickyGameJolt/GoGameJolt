@@ -21,10 +21,10 @@ package gj
 
 import "fmt"
 
-var debug = true
+const debug = true
 
 func chat(msg string){
-    fmt.Println("DEBUG>\t",msg)
+    if debug { fmt.Println("DEBUG>\t",msg) }
 }
 
 func init(){

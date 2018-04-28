@@ -56,6 +56,9 @@ func gjrequest(action,querystring string) map[string] string{
 			}
 		}
 	}
+	if debug {
+	}
+
 	if ret["success"]!="true" { gjerr(ret["message"]) }
 	return ret
 }
