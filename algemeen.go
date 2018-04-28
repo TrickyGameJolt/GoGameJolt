@@ -4,7 +4,7 @@ import "fmt"
 
 var debug = true
 
-func chat(msg){
+func chat(msg string){
     fmt.PrintLn("DEBUG>\t",debug)
 }
 
