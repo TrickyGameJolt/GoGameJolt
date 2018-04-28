@@ -29,7 +29,7 @@ import (
 )
 
 func netget(url string) string{
-	resp,e:=http.Get("http://utbbs.tbbs.nl")
+	resp,e:=http.Get(url)
 	//if e!=nil { fmt.Println("ERROR!!!",e.Error()) } else {fmt.Println(c)}
 	if e!=nil {goerr(e.Error()); return ""}
 	defer resp.Body.Close()
@@ -57,6 +57,9 @@ func gjrequest(action,querystring string) map[string] string{
 		}
 	}
 	if debug {
+		for k,v := range ret {
+			chat(fmt.Sprinft("\t%s = %s",k,v))
+		}
 	}
 
 	if ret["success"]!="true" { gjerr(ret["message"]) }
