@@ -17,3 +17,6 @@
 .DS_Store
 ._*
 
+# No MKL data please
+*mkl*
+MKL*
