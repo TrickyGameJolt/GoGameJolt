@@ -52,7 +52,10 @@ func CurrentError() *Erf{
 }
 
 
-func algemene_fout(reportedby,message string) { cErf.EFUN(reportedby,message) }
+func algemene_fout(reportedby,message string) { 
+	chat(reportedby+":\t"+message)
+	cErf.EFUN(reportedby,message) 
+}
 
 func gjerr(message string) { algemene_fout("Game Jolt",message) }
 func goerr(message string) { algemene_fout("Go Language",message) } 
@@ -60,8 +63,14 @@ func myerr(message string) { algemene_fout("Go Game Jolt",message) }
 
 func init(){
 	RegError(&Erf{func(reportedby,errmessage string){
-		fmt.Sprint("GAME JOLT API ERROR!\nReported by: %s\nError message: %s\n",reportedby,errmessage)
+		//panic("yikes")
+		fmt.Println("GAME JOLT API ERROR!")
+		fmt.Println("Reported by: "+reportedby)
+		fmt.Println("    Message: "+errmessage)
+		fmt.Println()
+		//fmt.Sprint("GAME JOLT API ERROR!\nReported by: %s\nError message: %s\n",reportedby,errmessage) // for some reason the system ignores this line
 	}})
 	dErf = cErf
+	if cErf==nil { chat("No error chatcher") } else { chat("Error catcher set") }
 }
 

@@ -29,6 +29,7 @@ import (
 )
 
 func netget(url string) string{
+	chat("netget("+url+")")
 	resp,e:=http.Get(url)
 	//if e!=nil { fmt.Println("ERROR!!!",e.Error()) } else {fmt.Println(c)}
 	if e!=nil {goerr(e.Error()); return ""}
@@ -40,9 +41,12 @@ func netget(url string) string{
 
 
 
-func gjrequest(action,querystring string) map[string] string{
+func gjrequest(action,querystring,privatekey string) map[string] string{
 	// https://api.gamejolt.com/api/game/v1/data-store/?game_id=32&key=test&signature=912ec803b2ce49e4a541068d495ab570
-	ng:=netget("https://api.gamejolt.com/api/game/v1/"+action+"/?"+querystring) //game_id=32&key=test&signature=912ec803b2ce49e4a541068d495ab570
+	url:="https://api.gamejolt.com/api/game/v1/"+action+"/?"+querystring
+	url+="&signature="+getMD5Hash(url+privatekey)
+	ng:=netget(url) //game_id=32&key=test&signature=912ec803b2ce49e4a541068d495ab570
+	chat("GJ returned:\n"+ng+"\nEND RETURN")
 	lines:=strings.Split(ng,"\n")
 	ret:=map[string] string{}
 	for li,ln := range lines{
@@ -58,16 +62,16 @@ func gjrequest(action,querystring string) map[string] string{
 	}
 	if debug {
 		for k,v := range ret {
-			chat(fmt.Sprinft("\t%s = %s",k,v))
+			chat(fmt.Sprintf("\t%s = %s",k,v))
 		}
 	}
 
-	if ret["success"]!="true" { gjerr(ret["message"]) }
+	if ret["success"]!="true" { chat("Dit ging niet goed"); gjerr(ret["message"]) }
 	return ret
 }
 
 func (self *GJUser) qreq(action,querystring string) map[string] string{
-	return gjrequest(action,querystring+self.idstring+self.gamestuff)
+	return gjrequest(action,querystring+self.idstring+self.gamestuff,self.gamekey)
 }
 
 

@@ -21,7 +21,7 @@ package gj
 
 import "fmt"
 
-const debug = true
+const debug = false
 
 func chat(msg string){
     if debug { fmt.Println("DEBUG>\t",msg) }

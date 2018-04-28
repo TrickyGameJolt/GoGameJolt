@@ -25,7 +25,7 @@ type GJUser struct{
 	userid string
 	token string
 	gameid string
-	gamesig string
+	gamekey string
 	// contains 'true' if succesfully logged in.
 	LoggedIn bool
 	idstring string 
@@ -40,9 +40,9 @@ func Login(gameid,privatekey,username,token string) *GJUser {
 	ret.userid=username
 	ret.token=token
 	ret.gameid=gameid
-	ret.gamesig=getMD5Hash(privatekey)
+	ret.gamekey=privatekey //getMD5Hash(privatekey)
 	ret.idstring = "&username="+username+"&user_token="+token
-	ret.gamestuff = "&game_id="+gameid+"&signature="+ret.gamesig
+	ret.gamestuff = "&game_id="+gameid //+"&signature="+ret.gamesig
 	d:=ret.qreq("users/auth","")
 	ret.LoggedIn = d["success"]=="true"
 	return ret

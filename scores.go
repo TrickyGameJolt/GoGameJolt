@@ -24,8 +24,8 @@ package gj
 func SubmitGuestScore(guestname,gameid,privatekey,score,sort,table_id string) bool {
 	qs:="score="+score+"&sort="+sort
 	if table_id!="" { qs+="&table_id"+table_id }
-	qs+="guest="+guestname+"&game_id="+gameid+"&signature="+getMD5Hash(privatekey)
-	r:=gjrequest("scores/add",qs)
+	qs+="guest="+guestname+"&game_id="+gameid //+"&signature="+getMD5Hash(privatekey)
+	r:=gjrequest("scores/add",qs,privatekey)
 	return r["success"]=="true"
 }
 
@@ -41,7 +41,7 @@ func (me *GJUser) SubmitScore(score,sort,table_id string) bool {
 
 
 
-func fetchscore(username,token,gameid,limit,table_id string) map[string] string{
+func fetchscore(username,token,gameid,limit,table_id,privatekey string) map[string] string{
 	qs:=""
 	if username!="" { 
 		qs+="username="+username+"&user_token="+token 
@@ -56,17 +56,17 @@ func fetchscore(username,token,gameid,limit,table_id string) map[string] string{
 	}
 	if qs!="" { qs+="&" }
 	qs+="game_id="+gameid
-	return gjrequest("scores",qs)
+	return gjrequest("scores",qs,privatekey)
 }
 
 
 // Fetches the score for a user
 // Only use this if you want to fetch the scores for that specific user!
 func (me *GJUser) FetchScore(limit,table_id string) map[string] string{
-	return fetchscore(me.userid,me.token,me.gameid,limit,table_id)
+	return fetchscore(me.userid,me.token,me.gameid,limit,table_id,me.gamekey)
 }
 
 // Fetches scores in general
-func FetchScore(gameid,limit,table_id string) map[string] string{
-	return fetchscore("","",gameid,limit,table_id)
+func FetchScore(gameid,limit,table_id,privatekey string) map[string] string{
+	return fetchscore("","",gameid,limit,table_id,privatekey)
 }
