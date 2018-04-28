@@ -5,7 +5,7 @@ import "fmt"
 var debug = true
 
 func chat(msg string){
-    fmt.Println("DEBUG>\t",debug)
+    fmt.Println("DEBUG>\t",msg)
 }
 
 func init(){
