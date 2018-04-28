@@ -10,3 +10,8 @@ Feel free to use it if you please, but keep in mind that bugs and other undesira
 
 
 ![](https://github.com/TrickyGameJolt/GoGameJolt/blob/master/Logo/HamsterJolt.png?raw=true)
+
+# Testing / Example
+
+
+A test program which can also be used as "example code" can be found in [this repository](https://github.com/TrickyGameJolt/GoGameJoltTest).
