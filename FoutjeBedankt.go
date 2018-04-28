@@ -35,8 +35,8 @@ func CurrentError() *Erf{
 
 func algemene_fout(reportedby,message string) { cErf.EFUN(reportedby,message) }
 
-func gjerr() { algemene_fout("Game Jolt",message) }
-func goerr() { algemene_fout("Go Language",message) } 
+func gjerr(message string) { algemene_fout("Game Jolt",message) }
+func goerr(message string) { algemene_fout("Go Language",message) } 
 
 func init(){
 	RegError(&Erf{func(reportedby,errmessage string){
