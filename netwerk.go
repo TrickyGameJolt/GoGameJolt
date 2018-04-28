@@ -33,7 +33,7 @@ func gjrequest(querystring string) map[string] string{
 		if ln!="" {
 			vr:=strings.Split(ln,":")
 			if len(vr)!=2 {
-				myerr(fmt.Sprintf("Game Jolt Parse error in line %d",li)
+				myerr(fmt.Sprintf("Game Jolt Parse error in line %d",li))
 			} else {
 				vr[1] = strings.Replace(vr[1], "\"", "", -1)
 				ret[vr[0]]=vr[1]
