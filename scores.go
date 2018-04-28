@@ -26,9 +26,9 @@ import "strings"
 
 // Submit score as a guest
 func SubmitGuestScore(guestname,gameid,privatekey,score,sort,table_id string) bool {
-	qs:="score="+score+"&sort="+sort
+	qs:="&score="+strings.Replace(score," ","+",-1)+"&sort="+sort
 	if table_id!="" { qs+="&table_id"+table_id }
-	qs+="guest="+guestname+"&game_id="+gameid //+"&signature="+getMD5Hash(privatekey)
+	qs+="&guest="+strings.Replace(guestname," ","+",-1)+"&game_id="+gameid //+"&signature="+getMD5Hash(privatekey)
 	r:=gjrequest("scores/add",qs,privatekey)
 	return r["success"]=="true"
 }
