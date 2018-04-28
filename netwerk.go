@@ -46,7 +46,7 @@ func gjrequest(action,querystring string) map[string] string{
 	return ret
 }
 
-func (*GJUser) qreq(action,querystring string) map[string] string{
+func (self *GJUser) qreq(action,querystring string) map[string] string{
 	return gjrequest(action,querystring+self.idstring+self.gamestuff)
 }
 
