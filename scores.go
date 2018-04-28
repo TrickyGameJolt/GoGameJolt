@@ -1,7 +1,7 @@
 /*
   scores.go
   Go Game Jolt -- Scores management
-  version: 18.04.28
+  version: 18.04.29
   Copyright (C) 2018 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,6 +21,8 @@
 //
 package gj
 
+import "strings"
+
 
 // Submit score as a guest
 func SubmitGuestScore(guestname,gameid,privatekey,score,sort,table_id string) bool {
@@ -35,7 +37,7 @@ func SubmitGuestScore(guestname,gameid,privatekey,score,sort,table_id string) bo
 // Submits a score as a user.
 // If you give up an empty string for table_id, Game Jolt will use the "primary" table. The only reason why you MUST at least put in something even if it's an empty string is because Go does not support optional parameters, and the dev crew also showed no interest to implement the feature (for reasons that are downright stupid if you ask me).
 func (me *GJUser) SubmitScore(score,sort,table_id string) bool {
-	qs:="score="+score+"&sort="+sort
+	qs:="score="+strings.Replace(score," ","+",-1)+"&sort="+sort
 	if table_id!="" { qs+="&table_id"+table_id }
 	r:=me.qreq("scores/add",qs)
 	return r["success"]=="true"
