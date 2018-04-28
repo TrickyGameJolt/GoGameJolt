@@ -20,11 +20,17 @@
 package gj
 
 import "fmt"
+import "strings"
 
 const debug = false
 
 func chat(msg string){
     if debug { fmt.Println("DEBUG>\t",msg) }
+}
+
+
+func myTrim(a string) string{
+	return strings.Trim(a," \t\n\r\x00")
 }
 
 func init(){

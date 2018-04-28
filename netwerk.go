@@ -55,14 +55,14 @@ func gjrequest(action,querystring,privatekey string) map[string] string{
 			if len(vr)!=2 {
 				myerr(fmt.Sprintf("Game Jolt Parse error in line %d",li))
 			} else {
-				vr[1] = strings.Replace(vr[1], "\"", "", -1)
+				vr[1] = myTrim(strings.Replace(vr[1], "\"", "", -1))
 				ret[vr[0]]=vr[1]
 			}
 		}
 	}
 	if debug {
 		for k,v := range ret {
-			chat(fmt.Sprintf("\t%s = %s",k,v))
+			chat(fmt.Sprintf("\t%s = '%s'",k,v))
 		}
 	}
 
