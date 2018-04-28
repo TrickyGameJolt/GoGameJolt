@@ -66,11 +66,13 @@ func fetchscore(username,token,gameid,limit,table_id,privatekey string) map[stri
 
 // Fetches the score for a user
 // Only use this if you want to fetch the scores for that specific user!
+// Note: The first score will just come with the fieldnames alone, and all next ones will have a number suffixed to it 1, 2, 3, etc...
 func (me *GJUser) FetchScore(limit,table_id string) map[string] string{
 	return fetchscore(me.userid,me.token,me.gameid,limit,table_id,me.gamekey)
 }
 
 // Fetches scores in general
+// Note: The first score will just come with the fieldnames alone, and all next ones will have a number suffixed to it 1, 2, 3, etc...
 func FetchScore(gameid,limit,table_id,privatekey string) map[string] string{
 	return fetchscore("","",gameid,limit,table_id,privatekey)
 }
