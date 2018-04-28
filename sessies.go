@@ -17,6 +17,8 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
+
+//
 package gj
 
 // Pings to the GJ server
@@ -30,6 +32,12 @@ func (me *GJUser) Ping(){
 func (me *GJUser) OpenSession(){
 	me.qreq("sessions/open","")
 }
+
+// Same as OpenSession :P
+func (me *GJUser) StartSession(){
+	me.qreq("sessions/open","")
+}
+
 
 // Closes the active session.
 
