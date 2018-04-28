@@ -14,6 +14,6 @@ func (me *GJUser) OpenSession(){
 
 // Closes the active session.
 
-func (me *GJUser) OpenSession(){
+func (me *GJUser) CloseSession(){
 	me.qreq("sessions/close","")
 }
