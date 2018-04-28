@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"strings"
 	"fmt"
+	"crypto/md5"
+	"encoding/hex"
 )
 
 func netget(url string) string{
@@ -24,9 +26,9 @@ func Ping(){
 	}
 
 
-func gjrequest(querystring string) map[string] string{
+func gjrequest(action,querystring string) map[string] string{
 	// https://api.gamejolt.com/api/game/v1/data-store/?game_id=32&key=test&signature=912ec803b2ce49e4a541068d495ab570
-	ng:=netget("https://api.gamejolt.com/api/game/v1/data-store/?"+querystring) //game_id=32&key=test&signature=912ec803b2ce49e4a541068d495ab570
+	ng:=netget("https://api.gamejolt.com/api/game/v1/"+action+"/?"+querystring) //game_id=32&key=test&signature=912ec803b2ce49e4a541068d495ab570
 	lines:=strings.Split(ng,"\n")
 	ret:=map[string] string{}
 	for li,ln := range lines{
@@ -42,4 +44,16 @@ func gjrequest(querystring string) map[string] string{
 	}
 	if ret["success"]!="true" { gjerr(ret["message"]) }
 	return ret
+}
+
+func (*GJUser) qreq(action,querystring string) map[string] string{
+	return gjrequest(action,querystring+self.idstring+self.gamestuff)
+}
+
+
+// https://gist.github.com/sergiotapia/8263278
+func getMD5Hash(text string) string {
+    hasher := md5.New()
+    hasher.Write([]byte(text))
+    return hex.EncodeToString(hasher.Sum(nil))
 }
