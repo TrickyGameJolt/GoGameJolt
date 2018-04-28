@@ -1,7 +1,7 @@
 /*
   netwerk.go
   Go Game Jolt -- Network calls
-  version: 18.04.28
+  version: 18.04.29
   Copyright (C) 2018 Jeroen P. Broks
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -57,8 +57,16 @@ func gjrequest(action,querystring,privatekey string) map[string] string{
 			if len(vr)!=2 {
 				myerr(fmt.Sprintf("Game Jolt Parse error in line %d",li))
 			} else {
-				vr[1] = myTrim(strings.Replace(vr[1], "\"", "", -1))
-				ret[vr[0]]=vr[1]
+				value:= myTrim(strings.Replace(vr[1], "\"", "", -1))
+				key:=vr[0]
+				kid:=0
+				_,ok:=ret[key]
+				for ok { 
+					kid++
+					key=fmt.Sprintf("%s%d",vr[0],kid)
+					_,ok=ret[key]
+				}
+				ret[key]=value
 			}
 		}
 	}
