@@ -8,3 +8,6 @@ GameJolt for the Go Language (WIP)
 This is still in a very pre-alpha state and very likely at this moment completely unusable.
 When this API is in usable form, it will be properly announced on the Game Jolt forums.
 Thank you!
+
+
+![](https://github.com/TrickyGameJolt/GoGameJolt/blob/master/Logo/HamsterJolt.png?raw=true)
